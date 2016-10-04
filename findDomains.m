@@ -9,9 +9,12 @@ elseif nargin == 1
 end
 
 % Start at top left corner
+tolerance = 0.9;
 domainEndPoints=[];
 curLocx=1;
 curLocy=1;
+differences = [];
+cliffDifferences = [];
 while curLocx < length(mat) - windowWidth
    % From where you are, look at the local window and decide if you are at
    % a cliff or not.
@@ -23,16 +26,19 @@ while curLocx < length(mat) - windowWidth
    % Extract left and right half submatrices of the window.
    halfWidth = round(windowWidth/2);
    middlex = curLocx + halfWidth;
-   %leftWindow = mat(curLocy:curLocy+windowHeight, curLocx:middlex);
+   leftWindow = mat(curLocy:curLocy+windowHeight, curLocx:middlex);
    rightWindow = mat(curLocy:curLocy+windowHeight, middlex+1:curLocx+windowWidth);
-   %leftSum = sum(sum(leftWindow));
-   rightSum = sum(sum(rightWindow));
-   if rightSum < windowHeight
+   
+   leftDensity = nnz(leftWindow)/numel(leftWindow);
+   rightDensity = nnz(rightWindow)/numel(rightWindow);
+   differences = [differences (leftDensity - rightDensity)];
+   if leftDensity - rightDensity > 1 - tolerance
        % We are near a cliff, should drop down back to the diagonal
        curLocx = curLocx + 1;
        curLocy = curLocx;
        % Write out the domain edge
        domainEndPoints = [domainEndPoints curLocx];
+       cliffDifferences = [cliffDifferences (leftDensity - rightDensity)];
    else
        % Not near a cliff, keep going horizontally
        curLocx = curLocx + 1;
@@ -51,6 +57,14 @@ for j = domainEndPoints(1:end)
     line([j, j], [leftBoundary, j], 'Color', 'r', 'LineWidth', 2)
     leftBoundary = j;
 end
+hold off
+figure()
+h1 = histogram(differences);
+hold on
+h2 = histogram(cliffDifferences);
+h2.BinWidth = h1.BinWidth;
+h1.Normalization = 'probability';
+h2.Normalization = 'probability';
 hold off
 end
 
