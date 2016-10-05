@@ -1,6 +1,7 @@
 function [ mat ] = getBinaryMat( roughSize )
-%getBinaryMat Returns random, binary, block-diagonal matrix, about
-%roughSize x roughSize.
+%getBinaryMat Get simulated data for TAD finding.
+%   Returns random, binary, block-diagonal matrix, about
+%   roughSize x roughSize.
 %   If roughSize not specified, defaults to 1000.
 if nargin == 0
    roughSize = 1000; 
