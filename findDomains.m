@@ -2,7 +2,7 @@ function [ domains ] = findDomains( mat )
 %findDomains Identify domains in an input matrix.
 
 minDens = 0.0;
-tolerance = 0.9;
+tolerance = 0.1;
 windowWidth = 5;
 
 % Start at top left corner
@@ -40,7 +40,7 @@ while curLocx < length(mat) - windowWidth
        curDomainStart = curLocx;
    end
    if onDomain
-       if lDens - rDens > 1 - tolerance || lDens <= minDens
+       if lDens - rDens > tolerance || lDens <= minDens
            % Detected an edge, end this domain
            onDomain = false;
            curLocx = curLocx + windowWidth;

@@ -1,13 +1,13 @@
 % Driving script (uncomment lines depending on what you want to test)
 
-% Create the simulated-data matrix
+% % Create the simulated-data matrix
 % mat = getBinaryMat();
-
-% Add noise
-% mat = imnoise(mat, 'salt & pepper', 0.6);
+% 
+% % Add noise
+% % mat = imnoise(mat, 'salt & pepper', 0.6);
 % mat = imnoise(mat, 'gaussian', 0.5, 0.5);
-
-% Run on sumulated data
+% 
+% % Run on simulated data
 % domains = findDomains(mat);
 % plotDomains(mat, domains);
 
