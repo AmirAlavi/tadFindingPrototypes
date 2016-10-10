@@ -4,6 +4,7 @@ function [ domains ] = findDomains( mat )
 minDens = 0.0;
 tolerance = 0.1;
 windowWidth = 5;
+halfWidth = round(windowWidth/2);
 
 % Start at top left corner
 curLocx = 1;
@@ -25,7 +26,6 @@ while curLocx < length(mat) - windowWidth
    % diagonal of the matrix. The width of the rectangle is windowWidth.
    windowHeight = curLocx - curLocy;    
    % Extract left and right half submatrices of the window.
-   halfWidth = round(windowWidth/2);
    middlex = curLocx + halfWidth;
    leftWindow = mat(curLocy:curLocy+windowHeight, curLocx:middlex);
    rightWindow = mat(curLocy:curLocy+windowHeight, middlex+1:curLocx+windowWidth);
@@ -44,7 +44,7 @@ while curLocx < length(mat) - windowWidth
            % Detected an edge, end this domain
            onDomain = false;
            curLocx = curLocx + windowWidth;
-           domains{domainsIdx} = [curDomainStart curLocx];
+           domains{domainsIdx} = [curDomainStart middlex];
            domainsIdx = domainsIdx + 1;
            curLocy = curLocx;
        else

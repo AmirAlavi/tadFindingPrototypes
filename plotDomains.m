@@ -1,20 +1,16 @@
-function [ ] = plotDomains( mat, domains, plotTitle )
-%plotDomains Draw the domains on an image of the input matrix.
+function [ ] = plotDomains( domains , color)
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
 
-figure()
-imshow(mat)
-hold on
 for j = 1:length(domains)
     domain = domains{j};
     dStart = domain(1);
     dEnd = domain(2);
     % Draw the horizontal side
     line([dStart, dEnd], [dStart, dStart], 'Color',...
-        'r', 'LineWidth', 2)
+        color, 'LineWidth', 1)
     % Draw the vertical side
-    line([dEnd, dEnd], [dStart, dEnd], 'Color', 'r', 'LineWidth', 2)
+    line([dEnd, dEnd], [dStart, dEnd], 'Color', color, 'LineWidth', 1)
 end
-hold off
-title(plotTitle)
 end
 
