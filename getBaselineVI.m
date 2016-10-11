@@ -1,7 +1,7 @@
 % (Inspired by code by Natalie Sauerwald)
-function [ baselineVI  VIs] = getBaselineVI( domains1, domains2, chrLength )
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+function [baselineVI,  VIs] = getBaselineVI(domains1, domains2, chrLength)
+%getBaselineVI Create a distribution of VI values between domains1 and
+% domains2.
 
 % Possible issue: some domain sets might double count the end of a domain
 % as the start of the other domain, while others never do this.
@@ -29,7 +29,7 @@ if tailEnd > significantGapSize
     lengths = [lengths tailEnd];
 end
 
-% Shuffle and calculate VI 500 times
+% Shuffle and calculate VI 1000 times
 VIs = [];
 for i = 1:1000
     randIndices = randperm(length(lengths));
@@ -46,7 +46,10 @@ for i = 1:1000
 end
 baselineVI = mean(VIs);
 figure()
-histogram(VIs)
-fprintf('Baseline VI is: %f\n', baselineVI)
+histogram(VIs, 'Normalization', 'pdf')
+title('Distribution of VI values')
+xlabel('VI')
+ylabel('Count')
+fprintf('Mean VI is: %f\n', baselineVI)
 end
 

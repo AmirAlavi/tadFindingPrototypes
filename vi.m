@@ -1,3 +1,4 @@
+% Author: Natalie Sauerwald
 function out = vi(x1,x2,chrlength)
 
 % calculate variation of information for two clustering schemes x1, x2

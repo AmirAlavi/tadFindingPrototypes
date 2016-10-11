@@ -1,5 +1,6 @@
 function [ domains ] = findDomains( mat, tolerance, minDens, windowWidth )
-%findDomains Identify domains in an input matrix.
+%findDomains Identify domains in an input matrix (implimentation of the
+% new algorithm).
 
 % Fill in optional args w/defaults if not given
 switch nargin
@@ -37,7 +38,8 @@ while curLocx < length(mat) - windowWidth
    % Extract left and right half submatrices of the window.
    middlex = curLocx + halfWidth;
    leftWindow = mat(curLocy:curLocy+windowHeight, curLocx:middlex);
-   rightWindow = mat(curLocy:curLocy+windowHeight, middlex+1:curLocx+windowWidth);
+   rightWindow = mat(curLocy:curLocy+windowHeight,...
+       middlex+1:curLocx+windowWidth);
    % Calculate the density of the left and right windows
    lDens = nnz(leftWindow)/numel(leftWindow);
    rDens = nnz(rightWindow)/numel(rightWindow);

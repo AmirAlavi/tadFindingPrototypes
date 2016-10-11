@@ -1,6 +1,5 @@
 function [ ] = plotDomains( domains , color)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%plotDomains Does the work of plotting domains as lines on a matrix
 
 for j = 1:length(domains)
     domain = domains(j,:);

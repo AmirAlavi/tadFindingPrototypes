@@ -1,7 +1,7 @@
 function [ ] = calcDomainStats( domains )
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
- % Calculate average domain size
+%calcDomainStats Calculate various statistics on the domains.
+
+% For now we just calculate mean and stddev of domain sizes
 domainSizes = zeros([1, length(domains)]);
 for i = 1:length(domains)
     domain = domains(i,:);
@@ -9,6 +9,8 @@ for i = 1:length(domains)
     domainSizes(i) = size;
 end
 avgSize = mean(domainSizes);
-fprintf('Average domain size: %f\n', avgSize)
+stddev = std(domainSizes);
+fprintf('Average domain size: %f, Standard deviation: %f\n', avgSize,...
+    stddev)
 end
 

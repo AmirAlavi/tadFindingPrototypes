@@ -1,5 +1,7 @@
-function [ ] = plotTwoDomainSets( mat, domains1, d1name, domains2, d2name, plotTitle )
-%plotDomains Draw the domains on an image of the input matrix.
+function [ ] = plotTwoDomainSets( mat, domains1, d1name, domains2,...
+    d2name, plotTitle )
+%plotTwoDomainSets Draw two sets of domains together on an image of the
+% input matrix.
 
 figure()
 imshow(mat)
@@ -14,10 +16,12 @@ a1 = annotation('textbox', [0.7, 0.85 ,0.1,0.1],...
            'String', d1name);
 a1.BackgroundColor = 'w';
 a1.Color = 'r';
+a1.FontSize = 14;
 a2 = annotation('textbox', [0.7, 0.8 ,0.1,0.1],...
            'String', d2name);
 a2.BackgroundColor = 'w';
 a2.Color = 'b';
+a2.FontSize = 14;
 axis on
 end
 

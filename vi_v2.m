@@ -1,3 +1,4 @@
+% Author: Natalie Sauerwald
 function out = vi_v2(x1,x2,chrlength)
 
 % calculate variation of information for two clustering schemes x1, x2
@@ -6,8 +7,8 @@ function out = vi_v2(x1,x2,chrlength)
 % chrlength - just number of rows of raw data matrix
 % res - 2 element vector with resolutions for x1 and x2
 
-% x1 and x2 need to be converted to vectors of length of chromosome, with numbers corresponding
-% to clusters for each index
+% x1 and x2 need to be converted to vectors of length of chromosome, with
+% numbers corresponding to clusters for each index
 
 % x1 = x1/res(1);
 % x2 = x2/res(2);

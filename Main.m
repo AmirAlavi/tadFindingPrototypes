@@ -1,13 +1,26 @@
 % Driving script (uncomment lines depending on what you want to test)
 
+% Create the simulated-data matrix
+mat = getBinaryMat();
+domains = findDomains(mat);
+plotDomainSet(mat, domains, 'Trivial Data');
+
+% Add noise
+% mat = imnoise(mat, 'salt & pepper', 0.6);
+mat = round(imnoise(mat, 'gaussian', 0.5, 0.5));
+
+% Run on simulated data
+domains = findDomains(mat, 0.25);
+plotDomainSet(mat, domains, 'Simualated Noisy Data');
+
 % Run on Dixon data
 chr01 = load('DixonChr01HiC.mat');
 chr01domains = findDomains(chr01.data);
-%plotDomainSet(chr01.data, domains, 'Chromosome 01');
+plotDomainSet(chr01.data, chr01domains, 'Chromosome 01');
 
 chr22 = load('DixonChr22HiC.mat');
-domains = findDomains(chr22.data);
-%plotDomainSet(chr22.data, domains, 'Chromosome 22');
+chr22domains = findDomains(chr22.data);
+plotDomainSet(chr22.data, chr22domains, 'Chromosome 22');
 
 % Load Armatus results
 armatusChr01 = load('ArmatusChr01Gamma0_5.mat');
@@ -21,19 +34,18 @@ dixonChr01 = load('DixonChr01Domains.mat');
 dixonChr01Domains = dixonChr01.domains;
 plotTwoDomainSets(chr01.data, chr01domains, 'New method',...
     dixonChr01Domains, 'Dixon et al', 'Chromosome 01, Compared to Dixon');
+xlim([1400 3000])
+ylim([1400 3000])
+
 calcDomainStats(chr01domains)
+calcDomainStats(dixonChr01Domains)
 calcDomainStats(armatusChr01Domains)
 
-% boundaries = idea3(chr01.data);
-% boundariesToCoordinates(boundaries);
-
 % VI:
-%vi2(
-[baselineVI, VIs] = getBaselineVI(chr01domains, dixonChr01Domains, length(chr01.data));
+vi2(
+[baselineVI, VIs] = getBaselineVI(chr01domains, dixonChr01Domains,...
+    length(chr01.data));
 VI = vi_v2(chr01domains, dixonChr01Domains, length(chr01.data));
-if VI > baselineVI
-    pVal = sum(VIs > VI) / length(VIs);
-else
-    pVal = sum(VIs < VI) / length(VIs);
-end
-pVal = pVal * 2;
+hold on
+line([VI, VI], [0, 8], 'Color', [1 0.5 0], 'LineWidth', 2)
+hold off
