@@ -3,7 +3,7 @@ function [ ] = plotDomains( domains , color)
 %   Detailed explanation goes here
 
 for j = 1:length(domains)
-    domain = domains{j};
+    domain = domains(j,:);
     dStart = domain(1);
     dEnd = domain(2);
     % Draw the horizontal side

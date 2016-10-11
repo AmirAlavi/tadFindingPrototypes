@@ -1,9 +1,19 @@
-function [ domains ] = findDomains( mat )
+function [ domains ] = findDomains( mat, tolerance, minDens, windowWidth )
 %findDomains Identify domains in an input matrix.
 
-minDens = 0.0;
-tolerance = 0.1;
-windowWidth = 5;
+% Fill in optional args w/defaults if not given
+switch nargin
+    case 1
+        tolerance = 0.1;
+        minDens = 0.0;
+        windowWidth = 5;
+    case 2
+        minDens = 0.0;
+        windowWidth = 5;
+    case 3
+        windowWidth = 5;
+end
+
 halfWidth = round(windowWidth/2);
 
 % Start at top left corner
@@ -11,8 +21,7 @@ curLocx = 1;
 curLocy = 1;
 
 % List of domains we have found
-domains = {};
-domainsIdx = 1;
+domains = [];
 
 onDomain = false;
 curDomainStart = 0;
@@ -42,10 +51,10 @@ while curLocx < length(mat) - windowWidth
    if onDomain
        if lDens - rDens > tolerance || lDens <= minDens
            % Detected an edge, end this domain
+           newDomain = [curDomainStart middlex];
+           domains = [domains; newDomain];
            onDomain = false;
            curLocx = curLocx + windowWidth;
-           domains{domainsIdx} = [curDomainStart middlex];
-           domainsIdx = domainsIdx + 1;
            curLocy = curLocx;
        else
            % Still within a domain, keep moving forward
@@ -61,7 +70,8 @@ end
 % Make sure to add the last domain to the list (if algorithm reached end
 % of the matrix in the middle of a domain):
 if onDomain
-    domains{domainsIdx} = [curDomainStart length(mat)];
+    lastDomain = [curDomainStart length(mat)];
+    domains = [domains; lastDomain];
 end
 end
 

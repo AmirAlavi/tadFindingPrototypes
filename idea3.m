@@ -1,7 +1,7 @@
 function [ boundaries ] = idea3( mat )
 %findDomains Identify domains in an input matrix.
 
-minDens = 0.0;
+%minDens = 0.0;
 tolerance = 0.4;
 windowWidth = 5;
 windowHeight = 5;
@@ -11,8 +11,7 @@ halfWidth = round(windowWidth/2);
 curLocx = 1;
 curLocy = 1;
 
-boundaries = {};
-boundariesIdx = 1;
+boundaries = [];
 
 while curLocy < length(mat) - windowHeight
    % From where you are, look at the local window and decide if you are at
@@ -33,8 +32,8 @@ while curLocy < length(mat) - windowHeight
        lDens = nnz(leftWindow)/numel(leftWindow);
        rDens = nnz(rightWindow)/numel(rightWindow);
        if lDens - rDens > tolerance
-           boundaries{boundariesIdx} = [middlex curLocy lDens];
-           boundariesIdx = boundariesIdx + 1;
+           boundary = [middlex lDens];
+           boundaries = [boundaries; boundary];
        end
        curLocx = curLocx + 1;
    end

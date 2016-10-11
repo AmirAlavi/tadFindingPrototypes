@@ -4,7 +4,7 @@ function [ ] = calcDomainStats( domains )
  % Calculate average domain size
 domainSizes = zeros([1, length(domains)]);
 for i = 1:length(domains)
-    domain = domains{i};
+    domain = domains(i,:);
     size = domain(2) - domain(1);
     domainSizes(i) = size;
 end
