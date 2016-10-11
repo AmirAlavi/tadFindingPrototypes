@@ -1,6 +1,6 @@
 function [ ] = plotBoundaries( mat, boundaries, boundaryHeight, plotTitle )
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
+%plotBoundaries Draw the boundaries from idea2 on the matrix image to see
+% if they provide any useful information
 
 figure()
 imshow(mat)

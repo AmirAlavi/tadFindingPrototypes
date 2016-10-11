@@ -1,5 +1,6 @@
 function [ boundaries ] = idea2( mat )
-%findDomains Identify domains in an input matrix.
+%idea2 The goal is to read through the matrix row by row and mark
+% multiple "boundaries" along each row, determined by our "window" method
 
 minDens = 0.0;
 tolerance = 0.4;
