@@ -42,7 +42,6 @@ calcDomainStats(dixonChr01Domains)
 calcDomainStats(armatusChr01Domains)
 
 % VI:
-vi2(
 [baselineVI, VIs] = getBaselineVI(chr01domains, dixonChr01Domains,...
     length(chr01.data));
 VI = vi_v2(chr01domains, dixonChr01Domains, length(chr01.data));
